@@ -6,7 +6,6 @@ import { useEffect } from "react";
 
 const AnimeLists = ({ searchText }) => {
   const [getAnimeLists, { loading, data }] = useLazyQuery(GET_ANIME_LISTS);
-  console.log(data, loading);
 
   useEffect(() => {
     getAnimeLists();
@@ -19,6 +18,8 @@ const AnimeLists = ({ searchText }) => {
           search: searchText,
         },
       });
+    } else {
+      getAnimeLists();
     }
     console.log("There is a change on search text");
   }, [searchText]);
