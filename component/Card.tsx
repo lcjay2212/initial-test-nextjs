@@ -13,6 +13,7 @@ import React from "react";
 const Card = ({ data: q }) => {
   return (
     <Box
+      key={q.id}
       _hover={{
         boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
         cursor: "pointer",
@@ -45,18 +46,20 @@ const Card = ({ data: q }) => {
         >
           {q?.title?.userPreferred}
         </Text>
-        <Flex flexWrap="wrap">
-          {q.genres.map((a, i) => {
-            if (i <= 1) {
-              return (
-                <Tag size="sm" m="1" textTransform={"uppercase"}>
-                  {a}
-                </Tag>
-              );
-            } else {
-              return <></>;
-            }
-          })}
+        <Flex flexWrap="wrap" align="center" justifyContent="flex-start">
+          {q.genres
+            .filter((_, q: number) => q <= 1)
+            .map((a: string, i: number) => (
+              <Tag
+                key={i}
+                size="sm"
+                m="1"
+                colorScheme="facebook"
+                textTransform={"uppercase"}
+              >
+                {a}
+              </Tag>
+            ))}
         </Flex>
       </Stack>
       {q.description && <Text>{q?.description?.substr(0, 75)}... </Text>}

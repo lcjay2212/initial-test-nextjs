@@ -11,10 +11,10 @@ export const GET_ANIME_LISTS = gql`
         perPage
       }
       media(search: $search) {
+        id
         title {
           userPreferred
         }
-        id
         coverImage {
           extraLarge
         }

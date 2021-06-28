@@ -1,7 +1,8 @@
 import AnimeLists from "../component/AnimeLists";
 import { Box } from "@chakra-ui/layout";
 import Navbar from "../component/Navbar";
-import { useState } from "react";
+import React, { useState } from "react";
+import Pagination from "../component/Pagination";
 
 export default function Home() {
   const [searchText, setSearchText] = useState("");
@@ -9,6 +10,7 @@ export default function Home() {
   return (
     <Box>
       <Navbar searchText={searchText} setSearchText={setSearchText} />
+      <Pagination />
       <AnimeLists searchText={searchText} />
     </Box>
   );

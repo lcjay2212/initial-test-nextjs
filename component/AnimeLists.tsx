@@ -3,26 +3,32 @@ import { Grid, Stack, Skeleton } from "@chakra-ui/react";
 import { GET_ANIME_LISTS } from "../queries/anime";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect } from "react";
+import useStore from "hooks/pagination";
 
 const AnimeLists = ({ searchText }) => {
-  const [getAnimeLists, { loading, data }] = useLazyQuery(GET_ANIME_LISTS);
+  const [getAnimeLists, { loading, data }] = useLazyQuery(GET_ANIME_LISTS, {
+    fetchPolicy: "network-only",
+  });
+
+  const page = useStore((state: { page: number }) => state.page);
+  const perPage = useStore((state: { perPage: number }) => state.perPage);
 
   useEffect(() => {
-    getAnimeLists();
-  }, []);
+    console.log({
+      page,
+      perPage,
+      searchText,
+    });
 
-  useEffect(() => {
-    if (searchText) {
-      getAnimeLists({
-        variables: {
-          search: searchText,
-        },
-      });
-    } else {
-      getAnimeLists();
-    }
-    console.log("There is a change on search text");
-  }, [searchText]);
+    console.log(page, perPage, "USE EFFECT");
+    getAnimeLists({
+      variables: {
+        page,
+        perPage,
+        search: searchText,
+      },
+    });
+  }, [page, perPage, searchText]);
 
   return (
     <>
@@ -40,8 +46,8 @@ const AnimeLists = ({ searchText }) => {
             p="4"
             w="100%"
           >
-            {Array.from({ length: 20 }).map((q) => (
-              <Stack>
+            {Array.from({ length: 20 }).map((_, i) => (
+              <Stack key={i}>
                 <Skeleton height={522} pb="1" />
               </Stack>
             ))}
