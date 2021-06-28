@@ -11,7 +11,6 @@ import {
 import React from "react";
 
 const Card = ({ data: q }) => {
-  console.log(q);
   return (
     <Box
       _hover={{
@@ -28,7 +27,7 @@ const Card = ({ data: q }) => {
     >
       <Box bg={"gray.100"} mt={-6} mx={-6} mb={6} pos={"relative"}>
         <Image
-          src={q.coverImage.extraLarge}
+          src={q?.coverImage?.extraLarge}
           w="100%"
           h="300px"
           objectPosition="center center"
@@ -44,7 +43,7 @@ const Card = ({ data: q }) => {
           fontSize={"sm"}
           letterSpacing={1.1}
         >
-          {q.title.userPreferred}
+          {q?.title?.userPreferred}
         </Text>
         <Flex flexWrap="wrap">
           {q.genres.map((a, i) => {
@@ -60,7 +59,7 @@ const Card = ({ data: q }) => {
           })}
         </Flex>
       </Stack>
-      <Text>{q.description.substr(0, 75)}... </Text>
+      {q.description && <Text>{q?.description?.substr(0, 75)}... </Text>}
     </Box>
   );
 };
