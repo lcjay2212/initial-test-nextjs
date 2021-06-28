@@ -4,29 +4,44 @@ import { GET_ANIME_LISTS } from "../queries/anime";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect } from "react";
 import useStore from "hooks/pagination";
+import shallow from "zustand/shallow";
 
 const AnimeLists = ({ searchText }) => {
+  const { page, perPage, setTotal } = useStore(
+    (state: {
+      page: number;
+      perPage: number;
+      setTotal: (e: number) => void;
+    }) => ({
+      page: state.page,
+      perPage: state.perPage,
+      setTotal: state.setTotal,
+    }),
+    shallow
+  );
+
   const [getAnimeLists, { loading, data }] = useLazyQuery(GET_ANIME_LISTS, {
     fetchPolicy: "network-only",
+    onCompleted: (response) => {
+      setTotal(response?.Page?.pageInfo?.total);
+    },
   });
 
-  const page = useStore((state: { page: number }) => state.page);
-  const perPage = useStore((state: { perPage: number }) => state.perPage);
-
   useEffect(() => {
-    console.log({
-      page,
-      perPage,
-      searchText,
-    });
-
     console.log(page, perPage, "USE EFFECT");
+
+    const variables: {
+      page: number;
+      perPage: number;
+      search?: string;
+    } = { page, perPage };
+
+    if (searchText) {
+      variables.search = searchText;
+    }
+
     getAnimeLists({
-      variables: {
-        page,
-        perPage,
-        search: searchText,
-      },
+      variables,
     });
   }, [page, perPage, searchText]);
 

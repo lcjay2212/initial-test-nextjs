@@ -9,26 +9,33 @@ import {
   PageGroup,
 } from "chakra-paginator";
 import useStore from "hooks/pagination";
+import shallow from "zustand/shallow";
 
 const Pagination = () => {
-  const setPage = useStore(
-    (state: { setPage: (e: number) => void }) => state.setPage
+  const { perPage, setPage, total, page } = useStore(
+    (state: {
+      setPage: (e: number) => void;
+      total: number;
+      perPage: number;
+      page: number;
+    }) => ({
+      setPage: state.setPage,
+      total: state.total,
+      perPage: state.perPage,
+      page: state.page,
+    }),
+    shallow
   );
 
-  const {
-    isDisabled,
-    pagesQuantity,
-    currentPage,
-    setCurrentPage,
-    offset, // you may not need this most of the times, but it's returned for you anyway
-  } = usePaginator({
-    total: 2000,
-    initialState: {
-      pageSize: 10,
-      currentPage: 1,
-      isDisabled: false,
-    },
-  });
+  const { isDisabled, pagesQuantity, currentPage, setCurrentPage } =
+    usePaginator({
+      total,
+      initialState: {
+        pageSize: perPage,
+        currentPage: page,
+        isDisabled: false,
+      },
+    });
 
   // styles
   const baseStyles: ButtonProps = {
