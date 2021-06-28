@@ -7,12 +7,17 @@ import {
   InputLeftElement,
   Text,
   useBreakpointValue,
+  chakra,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useState } from "react";
+import usePagination, { PaginationProps } from "hooks/pagination";
 
 const Navbar = ({ searchText, setSearchText }) => {
   const [temp, setTemp] = useState(searchText ?? "");
+  const resetValues = usePagination(
+    (state: PaginationProps) => state.resetValues
+  );
 
   return (
     <Box bg="#4B54A3" px={4}>
@@ -22,7 +27,7 @@ const Navbar = ({ searchText, setSearchText }) => {
           fontFamily={"heading"}
           color="white"
         >
-          <b>Anilist</b>
+          <chakra.b textTransform="uppercase">Anilist</chakra.b>
         </Text>
         <Flex>
           <InputGroup maxW="400px">
@@ -42,7 +47,10 @@ const Navbar = ({ searchText, setSearchText }) => {
           <Button
             ml="2"
             colorScheme="green"
-            onClick={() => setSearchText(temp)}
+            onClick={() => {
+              resetValues();
+              setSearchText(temp);
+            }}
           >
             Search
           </Button>

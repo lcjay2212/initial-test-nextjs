@@ -11,6 +11,8 @@ import {
 import useStore from "hooks/pagination";
 import shallow from "zustand/shallow";
 
+const buttonPadding = 7;
+
 const Pagination = () => {
   const { perPage, setPage, total, page } = useStore(
     (state: {
@@ -41,6 +43,7 @@ const Pagination = () => {
   const baseStyles: ButtonProps = {
     w: 7,
     fontSize: "sm",
+    p: buttonPadding,
   };
 
   const normalStyles: ButtonProps = {
@@ -61,6 +64,7 @@ const Pagination = () => {
   const separatorStyles: ButtonProps = {
     w: 7,
     bg: "green.200",
+    p: buttonPadding,
   };
 
   // handlers
@@ -76,9 +80,9 @@ const Pagination = () => {
       <Paginator
         isDisabled={isDisabled}
         activeStyles={activeStyles}
-        innerLimit={2}
         currentPage={currentPage}
-        outerLimit={2}
+        innerLimit={3}
+        outerLimit={3}
         normalStyles={normalStyles}
         separatorStyles={separatorStyles}
         pagesQuantity={pagesQuantity}

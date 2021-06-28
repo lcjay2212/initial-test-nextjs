@@ -3,19 +3,16 @@ import { Grid, Stack, Skeleton } from "@chakra-ui/react";
 import { GET_ANIME_LISTS } from "../queries/anime";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect } from "react";
-import useStore from "hooks/pagination";
+import useStore, { PaginationProps } from "hooks/pagination";
 import shallow from "zustand/shallow";
 
 const AnimeLists = ({ searchText }) => {
-  const { page, perPage, setTotal } = useStore(
-    (state: {
-      page: number;
-      perPage: number;
-      setTotal: (e: number) => void;
-    }) => ({
+  const { page, perPage, setTotal, setPage } = useStore(
+    (state: PaginationProps) => ({
       page: state.page,
       perPage: state.perPage,
       setTotal: state.setTotal,
+      setPage: state.setPage,
     }),
     shallow
   );
@@ -23,6 +20,10 @@ const AnimeLists = ({ searchText }) => {
   const [getAnimeLists, { loading, data }] = useLazyQuery(GET_ANIME_LISTS, {
     fetchPolicy: "network-only",
     onCompleted: (response) => {
+      if (searchText) {
+        setPage(1);
+      }
+
       setTotal(response?.Page?.pageInfo?.total);
     },
   });
