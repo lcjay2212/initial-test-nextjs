@@ -1,10 +1,11 @@
 import Card from "./Card";
 import { Grid, Stack, Skeleton } from "@chakra-ui/react";
-import { GET_ANIME_LISTS } from "../queries/anime";
+import { GET_ANIME_LISTS } from "queries/anime.queries";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect } from "react";
-import useStore, { PaginationProps } from "hooks/pagination";
+import useStore, { PaginationProps } from "hooks/usePagination";
 import shallow from "zustand/shallow";
+import useSearch, { SearchProps } from "hooks/useSearch";
 
 const templateColumns = {
   base: "repeat(1, 1fr)",
@@ -12,10 +13,9 @@ const templateColumns = {
   md: "repeat(3, 1fr)",
   lg: "repeat(4, 1fr)",
   xl: "repeat(5, 1fr)",
-  "2xl": "repeat(6, 1fr)",
 };
 
-const AnimeLists = ({ searchText }) => {
+const AnimeLists = () => {
   const { page, perPage, setTotal, setPage } = useStore(
     (state: PaginationProps) => ({
       page: state.page,
@@ -25,6 +25,8 @@ const AnimeLists = ({ searchText }) => {
     }),
     shallow
   );
+
+  const searchText = useSearch((state: SearchProps) => state.searchText);
 
   const [getAnimeLists, { loading, data }] = useLazyQuery(GET_ANIME_LISTS, {
     fetchPolicy: "network-only",
@@ -38,8 +40,6 @@ const AnimeLists = ({ searchText }) => {
   });
 
   useEffect(() => {
-    console.log(page, perPage, "USE EFFECT");
-
     const variables: {
       page: number;
       perPage: number;

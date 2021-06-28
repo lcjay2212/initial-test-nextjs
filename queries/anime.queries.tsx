@@ -20,6 +20,7 @@ export const GET_ANIME_LISTS = gql`
         }
         genres
         description
+        episodes
       }
     }
   }

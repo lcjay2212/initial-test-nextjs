@@ -11,9 +11,15 @@ import {
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import usePagination, { PaginationProps } from "hooks/pagination";
+import usePagination, { PaginationProps } from "hooks/usePagination";
+import useSearch, { SearchProps } from "hooks/useSearch";
 
-const Navbar = ({ searchText, setSearchText }) => {
+// const Navbar = ({ searchText, setSearchText }) => {
+const Navbar = () => {
+  const { searchText, setSearchText } = useSearch((state: SearchProps) => ({
+    searchText: state.searchText,
+    setSearchText: state.setSearchText,
+  }));
   const [temp, setTemp] = useState(searchText ?? "");
   const resetValues = usePagination(
     (state: PaginationProps) => state.resetValues

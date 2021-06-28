@@ -1,4 +1,3 @@
-import { useLazyQuery } from "@apollo/client";
 import { ButtonProps } from "@chakra-ui/react";
 import {
   Paginator,
@@ -8,19 +7,14 @@ import {
   Next,
   PageGroup,
 } from "chakra-paginator";
-import useStore from "hooks/pagination";
+import useStore, { PaginationProps } from "hooks/usePagination";
 import shallow from "zustand/shallow";
 
 const buttonPadding = 7;
 
 const Pagination = () => {
   const { perPage, setPage, total, page } = useStore(
-    (state: {
-      setPage: (e: number) => void;
-      total: number;
-      perPage: number;
-      page: number;
-    }) => ({
+    (state: PaginationProps) => ({
       setPage: state.setPage,
       total: state.total,
       perPage: state.perPage,
@@ -39,7 +33,6 @@ const Pagination = () => {
       },
     });
 
-  // styles
   const baseStyles: ButtonProps = {
     w: 7,
     fontSize: "sm",
@@ -67,12 +60,9 @@ const Pagination = () => {
     p: buttonPadding,
   };
 
-  // handlers
   const handlePageChange = (nextPage: number) => {
-    // -> request new data using the page number
     setCurrentPage(nextPage);
     setPage(nextPage);
-    console.log("request new data with ->", nextPage);
   };
 
   return (
