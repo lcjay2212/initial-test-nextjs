@@ -5,9 +5,9 @@ import {
   Tag,
   useColorModeValue,
   Image,
-  Flex
+  Flex,
 } from "@chakra-ui/react";
-import { GET_ANIME_LISTS } from "../queries/queries";
+import { GET_ANIME_LISTS } from "../queries/anime";
 import { useQuery } from "@apollo/client";
 import React from "react";
 
@@ -20,6 +20,11 @@ const Card = () => {
         data.Page.media.map((q) => {
           return (
             <Box
+              _hover={{
+                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+                cursor: "pointer",
+              }}
+              transition="0.5s ease-in"
               w={"full"}
               bg={useColorModeValue("white", "gray.900")}
               boxShadow={"2xl"}
@@ -27,13 +32,7 @@ const Card = () => {
               p={6}
               overflow={"hidden"}
             >
-              <Box
-                bg={"gray.100"}
-                mt={-6}
-                mx={-6}
-                mb={6}
-                pos={"relative"}
-              >
+              <Box bg={"gray.100"} mt={-6} mx={-6} mb={6} pos={"relative"}>
                 <Image
                   src={q.coverImage.extraLarge}
                   w="100%"
@@ -53,18 +52,21 @@ const Card = () => {
                 >
                   {q.title.userPreferred}
                 </Text>
-              <Flex flexWrap="wrap"> 
-              {q.genres.map((a, i) => {
-                 if (i <= 1) {
-                  return (
-                    <Tag m="1" textTransform={"uppercase"}>{a}</Tag>
-                )
-                 } else {
-                   return <></>
-                 }
-               })}
-              </Flex>
+                <Flex flexWrap="wrap">
+                  {q.genres.map((a, i) => {
+                    if (i <= 1) {
+                      return (
+                        <Tag size="sm" m="1" textTransform={"uppercase"}>
+                          {a}
+                        </Tag>
+                      );
+                    } else {
+                      return <></>;
+                    }
+                  })}
+                </Flex>
               </Stack>
+              <Text>{q.description.substr(0, 75)}... </Text>
             </Box>
           );
         })
