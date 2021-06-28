@@ -1,10 +1,15 @@
 import AnimeLists from "../component/AnimeLists";
 import { Box } from "@chakra-ui/layout";
+import Navbar from "../component/Navbar";
 
 export default function Home() {
+
+  
+
+
   return (
     <Box>
-      <h1>Hello</h1>
+      <Navbar />
       <AnimeLists />
     </Box>
   );
