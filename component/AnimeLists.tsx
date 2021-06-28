@@ -6,6 +6,15 @@ import { useEffect } from "react";
 import useStore, { PaginationProps } from "hooks/pagination";
 import shallow from "zustand/shallow";
 
+const templateColumns = {
+  base: "repeat(1, 1fr)",
+  sm: "repeat(2, 1fr)",
+  md: "repeat(3, 1fr)",
+  lg: "repeat(4, 1fr)",
+  xl: "repeat(5, 1fr)",
+  "2xl": "repeat(6, 1fr)",
+};
+
 const AnimeLists = ({ searchText }) => {
   const { page, perPage, setTotal, setPage } = useStore(
     (state: PaginationProps) => ({
@@ -50,18 +59,7 @@ const AnimeLists = ({ searchText }) => {
     <>
       {loading ? (
         <>
-          <Grid
-            templateColumns={{
-              base: "repeat(1, 1fr)",
-              sm: "repeat(2, 1fr)",
-              md: "repeat(3, 1fr)",
-              lg: "repeat(4, 1fr)",
-              xl: "repeat(5, 1fr)",
-            }}
-            gap={6}
-            p="4"
-            w="100%"
-          >
+          <Grid templateColumns={templateColumns} gap={6} p="4" w="100%">
             {Array.from({ length: 20 }).map((_, i) => (
               <Stack key={i}>
                 <Skeleton height={522} pb="1" />
@@ -70,18 +68,7 @@ const AnimeLists = ({ searchText }) => {
           </Grid>
         </>
       ) : (
-        <Grid
-          templateColumns={{
-            base: "repeat(1, 1fr)",
-            sm: "repeat(2, 1fr)",
-            md: "repeat(3, 1fr)",
-            lg: "repeat(4, 1fr)",
-            xl: "repeat(5, 1fr)",
-          }}
-          gap={6}
-          p="4"
-          w="100%"
-        >
+        <Grid templateColumns={templateColumns} gap={6} p="4" w="100%">
           {data?.Page.media?.length &&
             data?.Page.media?.map((q, i) => <Card key={i} data={q} />)}
         </Grid>
