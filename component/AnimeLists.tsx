@@ -33,6 +33,14 @@ const AnimeLists = () => {
     onCompleted: (response) => {
       if (searchText) {
         setPage(1);
+        setTimeout(() => {
+          const element: HTMLElement = document.querySelector(
+            '[aria-label="Go to page 1"]'
+          );
+          if (element) {
+            element.click();
+          }
+        });
       }
 
       setTotal(response?.Page?.pageInfo?.total);

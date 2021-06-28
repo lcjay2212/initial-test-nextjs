@@ -1,4 +1,4 @@
-import { ButtonProps } from "@chakra-ui/react";
+import { ButtonProps, Box } from "@chakra-ui/react";
 import {
   Paginator,
   Container,
@@ -23,6 +23,7 @@ const Pagination = () => {
     shallow
   );
 
+  console.log(total);
   const { isDisabled, pagesQuantity, currentPage, setCurrentPage } =
     usePaginator({
       total,
@@ -66,7 +67,7 @@ const Pagination = () => {
   };
 
   return (
-    <>
+    <Box opacity={total}>
       <Paginator
         isDisabled={isDisabled}
         activeStyles={activeStyles}
@@ -84,7 +85,7 @@ const Pagination = () => {
           <Next>Next</Next>
         </Container>
       </Paginator>
-    </>
+    </Box>
   );
 };
 
