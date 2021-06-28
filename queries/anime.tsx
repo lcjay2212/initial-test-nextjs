@@ -10,11 +10,9 @@ export const GET_ANIME_LISTS = gql`
         id
         coverImage {
           extraLarge
-          large
-          medium
-          color
         }
         genres
+        description
       }
     }
   }
