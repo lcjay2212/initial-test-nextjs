@@ -34,7 +34,7 @@ export const GET_ANIME_BY_ID = gql`
         userPreferred
       }
       description
-      popularityN
+      popularity
       genres
       episodes
       startDate {
@@ -50,9 +50,28 @@ export const GET_ANIME_BY_ID = gql`
       bannerImage
       coverImage {
         extraLarge
-        large
-        medium
-        color
+      }
+      status
+      characters {
+        nodes {
+          image {
+            large
+          }
+          name {
+            userPreferred
+          }
+          description
+        }
+      }
+      staff {
+        nodes {
+          name {
+            userPreferred
+          }
+          image {
+            large
+          }
+        }
       }
     }
   }

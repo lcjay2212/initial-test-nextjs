@@ -14,7 +14,6 @@ import { useState } from "react";
 import usePagination, { PaginationProps } from "hooks/usePagination";
 import useSearch, { SearchProps } from "hooks/useSearch";
 
-// const Navbar = ({ searchText, setSearchText }) => {
 const Navbar = () => {
   const { searchText, setSearchText } = useSearch((state: SearchProps) => ({
     searchText: state.searchText,
@@ -35,32 +34,6 @@ const Navbar = () => {
         >
           <chakra.b textTransform="uppercase">Anilist</chakra.b>
         </Text>
-        <Flex>
-          <InputGroup maxW="400px">
-            <InputLeftElement
-              pointerEvents="none"
-              children={<SearchIcon color="gray.300" />}
-            />
-            <Input
-              bg="white"
-              size="md"
-              placeholder="Search"
-              value={temp}
-              onChange={(e) => setTemp(e.target.value)}
-            />
-          </InputGroup>
-
-          <Button
-            ml="2"
-            colorScheme="green"
-            onClick={() => {
-              resetValues();
-              setSearchText(temp);
-            }}
-          >
-            Search
-          </Button>
-        </Flex>
       </Flex>
     </Box>
   );

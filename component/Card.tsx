@@ -76,13 +76,11 @@ const Card = ({ data: q }) => {
           boxShadow: "lg",
         }}
       >
-        {" "}
         <Link
           href={{
-            pathname: `/anime${q?.title?.userPreferred}`,
+            pathname: `/${q.id}`,
             query: {
               imgUrl: q?.coverImage?.extraLarge,
-              id: q.id,
             },
           }}
         >
