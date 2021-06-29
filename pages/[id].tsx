@@ -23,7 +23,7 @@ const AnimeById = () => {
       h="100%"
     >
       <AnimeDetails data={data?.Media} />
-      <TabsLists data={data?.Media?.characters?.nodes} />
+      <TabsLists data={data?.Media?.characters?.nodes} loading={loading} />
     </Box>
   );
 };
