@@ -23,7 +23,6 @@ const Pagination = () => {
     shallow
   );
 
-  console.log(total);
   const { isDisabled, pagesQuantity, currentPage, setCurrentPage } =
     usePaginator({
       total,
@@ -80,9 +79,13 @@ const Pagination = () => {
         onPageChange={handlePageChange}
       >
         <Container align="center" justify="space-around" w="full" p={4}>
-          <Previous justifyContent="flex-end">Previous</Previous>
+          <Previous w={100} p={buttonPadding}>
+            Previous
+          </Previous>
           <PageGroup isInline align="center" />
-          <Next>Next</Next>
+          <Next w={100} p={buttonPadding}>
+            Next
+          </Next>
         </Container>
       </Paginator>
     </Box>
