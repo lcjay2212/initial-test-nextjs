@@ -61,10 +61,16 @@ export const GET_ANIME_BY_ID = gql`
             userPreferred
           }
           description
+          dateOfBirth {
+            year
+            month
+            day
+          }
         }
       }
       staff {
         nodes {
+          id
           name {
             userPreferred
           }

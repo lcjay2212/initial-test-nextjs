@@ -5,8 +5,9 @@ import {
   useColorModeValue,
   Image,
   Stack,
-  Skeleton,
+  Link,
 } from "@chakra-ui/react";
+import CharacterInfo from "./CharacterInfo";
 
 const templateColume = {
   base: "repeat(2, 1fr)",
@@ -16,8 +17,9 @@ const templateColume = {
   xl: "repeat(8, 1fr)",
 };
 
-const StaffLists = ({ data, loading }) => {
+const CharacterLists = ({ data }) => {
   console.log(data);
+
   return (
     <Box mt={0}>
       <Grid templateColumns={templateColume} gap={6} p="4" w="100%">
@@ -66,4 +68,4 @@ const StaffLists = ({ data, loading }) => {
   );
 };
 
-export default StaffLists;
+export default CharacterLists;
