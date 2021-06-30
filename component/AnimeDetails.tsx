@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 
 const AnimeDetails = ({ data, loading }) => {
+  console.log(data);
   return (
     <>
       {loading ? (
@@ -76,11 +77,29 @@ const AnimeDetails = ({ data, loading }) => {
                     );
                   })}
                 </Box>
-                <Box>
-                  <Text>Episodes: {data?.episodes}</Text>
-                  <Text textTransform={"uppercase"}>
+                <Box color="gray.600">
+                  <Text fontWeight="bold" fontSize="xs">
+                    Episodes: {data?.episodes}
+                  </Text>
+                  <Text
+                    fontWeight="bold"
+                    fontSize="xs"
+                    textTransform={"uppercase"}
+                  >
                     Status: {data?.status} airing
                   </Text>
+                  <Text fontWeight="bold" fontSize="xs">
+                    Season: {data?.season} {data?.seasonYear}
+                  </Text>
+                  {data?.studios?.nodes
+                    .filter((_, i) => i <= 0)
+                    .map((q) => {
+                      return (
+                        <Text fontWeight="bold" fontSize="xs">
+                          Studio: {q?.name}
+                        </Text>
+                      );
+                    })}
                 </Box>
               </Box>
             </Box>
