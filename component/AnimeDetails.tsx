@@ -9,7 +9,6 @@ import {
   Link,
   Container,
   Tag,
-  Grid,
   Skeleton,
 } from "@chakra-ui/react";
 
@@ -18,20 +17,22 @@ const AnimeDetails = ({ data, loading }) => {
   return (
     <>
       {loading ? (
-        <Box p={12}>
-          <Stack>
+        <>
+          <Box p={12}>
             <Skeleton height={500} pb="1" />
-          </Stack>
-        </Box>
+            <Skeleton mt={6} height={20} />
+          </Box>
+        </>
       ) : (
         <Box
           backgroundImage={`url(${data?.bannerImage})`}
           bgRepeat="no-repeat"
-          backgroundSize="auto 43.75rem"
+          backgroundSize="auto 60rem"
           backgroundPosition="center"
-          backgroundAttachment="inherit"
+          backgroundAttachment="fixed"
+          overflow="hidden"
         >
-          <Flex justifyContent="center">
+          <Flex justifyContent="center" alignItems="center">
             <Box
               m={12}
               maxW={400}

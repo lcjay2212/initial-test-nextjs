@@ -3,7 +3,7 @@ import { GET_ANIME_BY_ID } from "queries/anime.queries";
 import { Box, useColorModeValue } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import AnimeDetails from "component/AnimeDetails";
-import TabsLists from "component/TabsLists";
+import TabsLists from "component/tabs/TabsLists";
 
 const AnimeById = () => {
   const router = useRouter();
