@@ -37,6 +37,8 @@ export const GET_ANIME_BY_ID = gql`
       popularity
       genres
       episodes
+      season
+      seasonYear
       startDate {
         year
         month
@@ -77,6 +79,11 @@ export const GET_ANIME_BY_ID = gql`
           image {
             large
           }
+        }
+      }
+      studios {
+        nodes {
+          name
         }
       }
     }
