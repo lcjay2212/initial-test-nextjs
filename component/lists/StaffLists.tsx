@@ -16,9 +16,10 @@ const templateColume = {
   xl: "repeat(8, 1fr)",
 };
 
-const CharacterInfo = ({ data, loading }) => {
+const StaffLists = ({ data, loading }) => {
+  console.log(data);
   return (
-    <Box>
+    <Box mt={0}>
       <Grid templateColumns={templateColume} gap={6} p="4" w="100%">
         {data?.map((q, i) => {
           return (
@@ -65,4 +66,4 @@ const CharacterInfo = ({ data, loading }) => {
   );
 };
 
-export default CharacterInfo;
+export default StaffLists;

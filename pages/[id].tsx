@@ -3,7 +3,6 @@ import { GET_ANIME_BY_ID } from "queries/anime.queries";
 import { Box, useColorModeValue } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import AnimeDetails from "component/AnimeDetails";
-import CharacterInfo from "component/CharacterInfo";
 import TabsLists from "component/TabsLists";
 
 const AnimeById = () => {
@@ -22,8 +21,8 @@ const AnimeById = () => {
       backgroundSize="20px 20px"
       h="100%"
     >
-      <AnimeDetails data={data?.Media} />
-      <TabsLists data={data?.Media?.characters?.nodes} loading={loading} />
+      <AnimeDetails data={data?.Media} loading={loading} />
+      <TabsLists data={data?.Media} loading={loading} />
     </Box>
   );
 };

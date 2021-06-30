@@ -1,28 +1,36 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import { useState } from "react";
-import CharacterInfo from "./CharacterInfo";
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Box } from "@chakra-ui/react";
+import CharacterInfo from "./lists/CharacterInfo";
+import StaffLists from "./lists/StaffLists";
 
 const TabsLists = ({ data, loading }) => {
   return (
-    <Tabs isFitted variant="enclosed">
-      <TabList mb="1em">
-        <Tab>Character</Tab>
-        <Tab>Staff</Tab>
-        <Tab>Info</Tab>
-      </TabList>
+    <Box>
+      <Tabs isFitted variant="enclosed" px={12} pb={12}>
+        <TabList bg="#6B6ACC" color="white" p={2}>
+          <Tab>
+            <b>Character</b>
+          </Tab>
+          <Tab>
+            <b>Staff</b>
+          </Tab>
+          <Tab>
+            <b>Info</b>
+          </Tab>
+        </TabList>
 
-      <TabPanels>
-        <TabPanel>
-          <CharacterInfo data={data} loading={loading} />
-        </TabPanel>
-        <TabPanel>
-          <p>two!</p>
-        </TabPanel>
-        <TabPanel>
-          <p>three!</p>
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
+        <TabPanels bg="white" boxShadow="dark-lg">
+          <TabPanel>
+            <CharacterInfo data={data?.characters?.nodes} loading={loading} />
+          </TabPanel>
+          <TabPanel>
+            <StaffLists data={data?.staff?.nodes} loading={loading} />
+          </TabPanel>
+          <TabPanel>
+            <p>three!</p>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </Box>
   );
 };
 
