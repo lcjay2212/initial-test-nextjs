@@ -26,7 +26,7 @@ type Staff = {
   };
 };
 
-const StaffLists = ({ data }: { data: Staff[] }) => {
+const StaffLists = ({ data }: { data: Staff[]; loading: boolean }) => {
   return (
     <Grid templateColumns={templateColume} gap={6} p="4" w="100%">
       {uniqBy(data, "id").map((q, i: number): ReactElement => {
