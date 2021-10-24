@@ -25,3 +25,67 @@ export const GET_ANIME_LISTS = gql`
     }
   }
 `;
+
+export const GET_ANIME_BY_ID = gql`
+  query GetAnimeById($id: Int) {
+    Media(id: $id) {
+      id
+      title {
+        userPreferred
+      }
+      description
+      popularity
+      genres
+      episodes
+      season
+      seasonYear
+      startDate {
+        year
+        month
+        day
+      }
+      endDate {
+        year
+        month
+        day
+      }
+      bannerImage
+      coverImage {
+        extraLarge
+      }
+      status
+      characters {
+        nodes {
+          image {
+            large
+          }
+          name {
+            userPreferred
+          }
+          description
+          dateOfBirth {
+            year
+            month
+            day
+          }
+        }
+      }
+      staff {
+        nodes {
+          id
+          name {
+            userPreferred
+          }
+          image {
+            large
+          }
+        }
+      }
+      studios {
+        nodes {
+          name
+        }
+      }
+    }
+  }
+`;

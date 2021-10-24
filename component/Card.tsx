@@ -6,7 +6,9 @@ import {
   useColorModeValue,
   Image,
   Flex,
+  Button,
 } from "@chakra-ui/react";
+import Link from "next/link";
 
 import React from "react";
 
@@ -56,6 +58,7 @@ const Card = ({ data: q }) => {
                 m="1"
                 colorScheme="facebook"
                 textTransform={"uppercase"}
+                direction={"row"}
               >
                 {a}
               </Tag>
@@ -63,6 +66,27 @@ const Card = ({ data: q }) => {
         </Flex>
       </Stack>
       {q.description && <Text>{q?.description?.substr(0, 75)}... </Text>}
+      <Button
+        w={"full"}
+        mt={8}
+        colorScheme="green"
+        rounded={"md"}
+        _hover={{
+          transform: "translateY(-2px)",
+          boxShadow: "lg",
+        }}
+      >
+        <Link
+          href={{
+            pathname: `/${q.id}`,
+            query: {
+              imgUrl: q?.coverImage?.extraLarge,
+            },
+          }}
+        >
+          Read More!
+        </Link>
+      </Button>
     </Box>
   );
 };
