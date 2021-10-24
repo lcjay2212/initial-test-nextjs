@@ -53,11 +53,9 @@ const AnimeLists = () => {
       perPage: number;
       search?: string;
     } = { page, perPage };
-
     if (searchText) {
       variables.search = searchText;
     }
-
     getAnimeLists({
       variables,
     });

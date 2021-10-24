@@ -1,4 +1,13 @@
-import { ButtonProps, Box } from "@chakra-ui/react";
+import {
+  ButtonProps,
+  Box,
+  Button,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Flex,
+} from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
 import {
   Paginator,
   Container,
@@ -7,7 +16,10 @@ import {
   Next,
   PageGroup,
 } from "chakra-paginator";
+import usePagination from "hooks/usePagination";
 import useStore, { PaginationProps } from "hooks/usePagination";
+import useSearch, { SearchProps } from "hooks/useSearch";
+import { useState } from "react";
 import shallow from "zustand/shallow";
 
 const buttonPadding = 7;
@@ -23,7 +35,6 @@ const Pagination = () => {
     shallow
   );
 
-  console.log(total);
   const { isDisabled, pagesQuantity, currentPage, setCurrentPage } =
     usePaginator({
       total,
@@ -66,26 +77,63 @@ const Pagination = () => {
     setPage(nextPage);
   };
 
+  const { searchText, setSearchText } = useSearch((state: SearchProps) => ({
+    searchText: state.searchText,
+    setSearchText: state.setSearchText,
+  }));
+  const [temp, setTemp] = useState(searchText ?? "");
+  const resetValues = usePagination(
+    (state: PaginationProps) => state.resetValues
+  );
+
   return (
-    <Box opacity={total}>
-      <Paginator
-        isDisabled={isDisabled}
-        activeStyles={activeStyles}
-        currentPage={currentPage}
-        innerLimit={3}
-        outerLimit={3}
-        normalStyles={normalStyles}
-        separatorStyles={separatorStyles}
-        pagesQuantity={pagesQuantity}
-        onPageChange={handlePageChange}
-      >
-        <Container align="center" justify="space-around" w="full" p={4}>
-          <Previous justifyContent="flex-end">Previous</Previous>
-          <PageGroup isInline align="center" />
-          <Next>Next</Next>
-        </Container>
-      </Paginator>
-    </Box>
+    <Flex align="center" justify="space-between" ml={5}>
+      <InputGroup maxW="400px">
+        <InputLeftElement pointerEvents="none" p={buttonPadding} />
+        <Input
+          bg="white"
+          size="md"
+          placeholder="Search"
+          value={temp}
+          onChange={(e) => setTemp(e.target.value)}
+          p={buttonPadding}
+        />
+        <Button
+          p={buttonPadding}
+          ml="2"
+          colorScheme="green"
+          onClick={() => {
+            resetValues();
+            setSearchText(temp);
+          }}
+          children={<SearchIcon color="gray.300" />}
+        ></Button>
+      </InputGroup>
+
+      <Box opacity={total}>
+        <Paginator
+          isDisabled={isDisabled}
+          activeStyles={activeStyles}
+          currentPage={currentPage}
+          innerLimit={1}
+          outerLimit={1}
+          normalStyles={normalStyles}
+          separatorStyles={separatorStyles}
+          pagesQuantity={pagesQuantity}
+          onPageChange={handlePageChange}
+        >
+          <Container align="center" justify="space-between" w="full" p={4}>
+            <Previous w={100} p={buttonPadding}>
+              Previous
+            </Previous>
+            <PageGroup isInline align="center" />
+            <Next w={100} p={buttonPadding}>
+              Next
+            </Next>
+          </Container>
+        </Paginator>
+      </Box>
+    </Flex>
   );
 };
 
