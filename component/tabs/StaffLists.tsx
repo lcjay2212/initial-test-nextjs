@@ -1,13 +1,13 @@
 import {
-  Grid,
   Box,
-  Text,
-  useColorModeValue,
+  Grid,
   Image,
   Stack,
-  Skeleton,
+  Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { uniqBy } from "lodash";
+import { ReactElement } from "react";
 
 const templateColume = {
   base: "repeat(2, 1fr)",
@@ -17,10 +17,19 @@ const templateColume = {
   xl: "repeat(8, 1fr)",
 };
 
-const StaffLists = ({ data, loading }) => {
+type Staff = {
+  image?: {
+    large?: string;
+  };
+  name?: {
+    userPreferred: string;
+  };
+};
+
+const StaffLists = ({ data }: { data: Staff[]; loading: boolean }) => {
   return (
     <Grid templateColumns={templateColume} gap={6} p="4" w="100%">
-      {uniqBy(data, "id")?.map((q: any, i: number) => {
+      {uniqBy(data, "id").map((q, i: number): ReactElement => {
         return (
           <Box
             key={i}
