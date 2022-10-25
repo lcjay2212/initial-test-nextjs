@@ -29,7 +29,7 @@ const AnimeLists = () => {
   const searchText = useSearch((state: SearchProps) => state.searchText);
 
   const [getAnimeLists, { loading, data }] = useLazyQuery(GET_ANIME_LISTS, {
-    fetchPolicy: "network-only",
+    fetchPolicy: "cache-and-network",
     onCompleted: (response) => {
       if (searchText) {
         setPage(1);
