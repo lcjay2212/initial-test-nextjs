@@ -21,6 +21,7 @@ import useStore, { PaginationProps } from "hooks/usePagination";
 import useSearch, { SearchProps } from "hooks/useSearch";
 import { useState } from "react";
 import shallow from "zustand/shallow";
+import { debounce } from "lodash";
 
 const buttonPadding = 7;
 
@@ -95,19 +96,15 @@ const Pagination = () => {
           size="md"
           placeholder="Search"
           value={temp}
-          onChange={(e) => setTemp(e.target.value)}
+          onChange={(e) => {
+            setTemp(e.target.value);
+            debounce(() => {
+              setSearchText(e.target.value);
+              resetValues();
+            }, 500)();
+          }}
           p={buttonPadding}
         />
-        <Button
-          p={buttonPadding}
-          ml="2"
-          colorScheme="green"
-          onClick={() => {
-            resetValues();
-            setSearchText(temp);
-          }}
-          children={<SearchIcon color="gray.300" />}
-        ></Button>
       </InputGroup>
 
       <Box opacity={total}>
